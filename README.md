@@ -1,7 +1,7 @@
 DrawingSpace
 ============
 
-Common operations useful for developing in Autocad with .NET.
+Common operations useful for developing in AutoCAD with .NET.
 
 Usage
 ============
