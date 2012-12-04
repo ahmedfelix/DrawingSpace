@@ -19,7 +19,8 @@ namespace DrawingSpace
         [CommandMethod("DSADDENTITYTRANS")]
         public static void AddEntityWithTransaction()
         {
-            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction();
+            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
+                .StartTransaction();
             Line line = new Line(new Point3d(0, 0, 0), new Point3d(1, 1, 0));
             DrawingSpace.AddEntity(line, transaction);
 
@@ -32,9 +33,11 @@ namespace DrawingSpace
         [CommandMethod("DSGETENTITY")]
         public static void GetEntity()
         {
-            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction();
+            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
+                .StartTransaction();
             PromptStatus status = new PromptStatus();
-            Entity entity = DrawingSpace.GetEntity("Select object:", transaction, ref status);
+            Entity entity = DrawingSpace.GetEntity("Select object:", transaction, ref status, 
+                OpenMode.ForWrite);
 
             // The status lets us know if the user actually selected something or cancelled.
             if (status == PromptStatus.OK)
@@ -48,12 +51,44 @@ namespace DrawingSpace
             }
         }
 
+        [CommandMethod("DSGETENTITYBYHANDLE")]
+        public static void GetEntityByHandle()
+        {
+            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
+                .StartTransaction();
+            String handle = "188"; // Usually the handle assigned to the first object drawn in AutoCAD 2010.
+
+            try
+            {
+                Entity entity = DrawingSpace.GetEntityByHandle(handle, transaction, OpenMode.ForWrite);
+
+                if (entity != null)
+                {
+                    entity.Color = Color.FromColorIndex(ColorMethod.ByAci, 3);
+                    transaction.Commit();
+                }
+            }
+
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                transaction.Dispose();
+            }
+
+        }
+
         [CommandMethod("DSGETSELECTION")]
         public static void GetSelection()
         {
-            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction();
+            Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
+                .StartTransaction();
             PromptStatus status = new PromptStatus();
-            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", transaction, ref status);
+            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", transaction, 
+                ref status, OpenMode.ForWrite);
 
             // Another way of dealing with the canceling of the operation or empty selection.
             if (status != PromptStatus.OK)
@@ -64,7 +99,7 @@ namespace DrawingSpace
 
             foreach (Entity entity in selection)
             {
-                entity.Color = Color.FromColorIndex(ColorMethod.ByAci, 3);
+                entity.Color = Color.FromColorIndex(ColorMethod.ByAci, 4);
             }
 
             transaction.Commit();
