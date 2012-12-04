@@ -14,15 +14,10 @@ namespace DrawingSpace
         {
             Database database = HostApplicationServices.WorkingDatabase;
             Transaction transaction = database.TransactionManager.StartTransaction();
-            BlockTable blockTable = (BlockTable)transaction.GetObject(database.BlockTableId,
-                OpenMode.ForRead);
-            BlockTableRecord record = (BlockTableRecord)transaction.GetObject(database.CurrentSpaceId,
-                OpenMode.ForWrite);
 
             try
             {
-                record.AppendEntity(entity);
-                transaction.AddNewlyCreatedDBObject(entity, true);
+                AddEntity(entity, transaction);
                 transaction.Commit();
             }
 
