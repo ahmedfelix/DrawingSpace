@@ -116,7 +116,6 @@ namespace DrawingSpace
         /// <returns>The entity that is identified in the drawing by the specified handle.</returns>
         public static Entity GetEntityByHandle(String handle, Transaction transaction, OpenMode mode)
         {
-
             // The defaults for opening erased or locked objects are both false.
             return GetEntityByHandle(handle, transaction, mode, false, false);
         }
