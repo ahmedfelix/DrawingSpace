@@ -79,11 +79,11 @@ namespace DrawingSpace
 
             options.AllowNone = true;
             result = command.GetEntity(options);
+            status = result.Status;
 
-            if (result.Status == PromptStatus.OK)
+            if (status == PromptStatus.OK)
             {
                 entity = (Entity)transaction.GetObject(result.ObjectId, OpenMode.ForWrite);
-                status = result.Status;
             }
 
             return entity;
