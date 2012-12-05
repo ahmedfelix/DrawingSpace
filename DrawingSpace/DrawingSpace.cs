@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 
 namespace DrawingSpace
 {
@@ -154,6 +155,24 @@ namespace DrawingSpace
             }
 
             return entity;
+        }
+
+
+        /// <summary>
+        /// Prompts the user to select a point in the drawing.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        public static Point3d GetPoint3d(String prompt, ref PromptStatus status)
+        {
+            PromptPointOptions options = new PromptPointOptions(prompt);
+            PromptPointResult result;
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            options.AllowNone = true;
+            result = command.GetPoint(options);
+            status = result.Status;
+
+            return result.Value;
         }
 
 
