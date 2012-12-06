@@ -95,7 +95,7 @@ namespace DrawingSpace
 
             try
             {
-                if (layerTable.Has(name) == false)
+                if (!layerTable.Has(name))
                 {
                     layerTable.Add(layerRecord);
                     transaction.AddNewlyCreatedDBObject(layerRecord, true);
