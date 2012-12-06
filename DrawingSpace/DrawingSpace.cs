@@ -113,6 +113,7 @@ namespace DrawingSpace
             }
         }
 
+
         /// <summary>
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
