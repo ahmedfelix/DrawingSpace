@@ -25,7 +25,7 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="rotationAngle">Angle in decimal degrees.</param>
         /// <param name="rotationAxis">X, Y, or Z axis around wich the rotation will take place.</param>
-        /// <remarks>This method only performs a 2D rotation around the specified axis.</remarks>
+        /// <remarks>This method performs a 2D rotation around the specified axis.</remarks>
         public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Axis rotationAxis)
         {
             // Default case is rotation around de Z-axis.
