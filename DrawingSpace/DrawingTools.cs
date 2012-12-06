@@ -24,6 +24,7 @@ namespace DrawingSpace
         /// Rotates an object in the drawing.
         /// </summary>
         /// <param name="rotationAngle">Angle in decimal degrees.</param>
+        /// <param name="rotationAxis">X, Y, or Z axis around wich the rotation will take place.</param>
         /// <remarks>This method only performs a 2D rotation around the specified axis.</remarks>
         public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Axis rotationAxis)
         {
@@ -40,8 +41,21 @@ namespace DrawingSpace
                     break;
             }
 
+            Rotate(entity, basePoint, rotationAngle, rotateVector);
+        }
+
+
+        /// <summary>
+        /// Rotates an object in the drawing.
+        /// </summary>
+        /// <param name="rotationAngle">Angle in decimal degrees.</param>
+        /// <param name="rotationAxis">Vector representing the custom axis around which the rotation 
+        /// will take place.</param>
+        /// <remarks>This method only performs a 2D rotation around the specified axis.</remarks>
+        public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Vector3d rotationAxis)
+        {
             Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle * Math.PI / 180,
-                rotateVector, basePoint);
+                rotationAxis, basePoint);
 
             entity.TransformBy(rotateMatrix);
         }
