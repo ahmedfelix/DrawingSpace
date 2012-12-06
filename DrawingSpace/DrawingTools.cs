@@ -51,7 +51,6 @@ namespace DrawingSpace
         /// <param name="rotationAngle">Angle in decimal degrees.</param>
         /// <param name="rotationAxis">Vector representing the custom axis around which the rotation 
         /// will take place.</param>
-        /// <remarks>This method only performs a 2D rotation around the specified axis.</remarks>
         public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Vector3d rotationAxis)
         {
             Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle * Math.PI / 180,
