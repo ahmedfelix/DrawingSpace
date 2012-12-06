@@ -30,6 +30,12 @@ namespace DrawingSpace
             transaction.Commit();
         }
 
+        [CommandMethod("DSADDLAYER")]
+        public static void AddLayer()
+        {
+            DrawingSpace.AddLayer("1");
+        }
+
         [CommandMethod("DSGETENTITY")]
         public static void GetEntity()
         {

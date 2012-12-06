@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.Colors;
 
 namespace DrawingSpace
 {
@@ -60,6 +61,57 @@ namespace DrawingSpace
 
         }
 
+
+        /// <summary>
+        /// Adds a new layer to the drawing.
+        /// </summary>
+        /// <param name="name">Name for the new layer.</param>
+        /// <remarks>The layer only gets added if it doesn't exist, there's no exception 
+        /// for trying to add an existing layer. The layer color will be white, 
+        /// every other property is set to its default value.</remarks>
+        public static void AddLayer(String name)
+        {
+            // 7 is the index for white, which is the default color.
+            AddLayer(name, Color.FromColorIndex(ColorMethod.ByAci,7));
+        }
+
+
+        /// <summary>
+        /// Adds a new layer to the drawing.
+        /// </summary>
+        /// <param name="name">Name for the new layer.</param>
+        /// <remarks>The layer only gets added if it doesn't exist, there's no exception 
+        /// for trying to add an existing layer.</remarks>
+        public static void AddLayer(String name, Color color)
+        {
+            Database database = HostApplicationServices.WorkingDatabase;
+            Transaction transaction = database.TransactionManager.StartTransaction();
+
+            LayerTable layerTable = (LayerTable)transaction.GetObject(database.LayerTableId, OpenMode.ForWrite);
+            LayerTableRecord layerRecord = new LayerTableRecord();
+
+            layerRecord.Name = name;
+            layerRecord.Color = color;
+
+            try
+            {
+                if (layerTable.Has(name) == false)
+                {
+                    layerTable.Add(layerRecord);
+                    transaction.AddNewlyCreatedDBObject(layerRecord, true);
+                    transaction.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                layerRecord.Dispose();
+                transaction.Dispose();
+            }
+        }
 
         /// <summary>
         /// Prompts the user to select a single entity from the drawing.
