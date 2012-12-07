@@ -250,8 +250,8 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
         /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
-        /// <returns>The double the user wrote. Any other operation will return 0.</returns>
-        public static double GetInteger(string prompt, ref PromptStatus status, bool allowNone)
+        /// <returns>The integer the user wrote. Any other operation will return 0.</returns>
+        public static int GetInteger(string prompt, ref PromptStatus status, bool allowNone)
         {
             // Default value is 0.
             return GetInteger(prompt, ref status, allowNone, 0);
@@ -263,8 +263,8 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
         /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
-        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
-        public static double GetInteger(string prompt, ref PromptStatus status, bool allowNone,
+        /// <returns>The integer the user wrote. Any other operation will return the default value.</returns>
+        public static int GetInteger(string prompt, ref PromptStatus status, bool allowNone,
             int defaultValue)
         {
             PromptIntegerOptions options = new PromptIntegerOptions(System.Environment.NewLine + prompt);
