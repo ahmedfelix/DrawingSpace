@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.ApplicationServices;
 
 namespace DrawingSpace
 {
@@ -109,6 +110,27 @@ namespace DrawingSpace
             }
 
             transaction.Commit();
+        }
+
+        [CommandMethod("DSGETSTRING")]
+        public static void GetString()
+        {
+            PromptStatus status = new PromptStatus();
+            String userInput = DrawingSpace.GetString("Input string:", ref status, true);
+
+            if (status == PromptStatus.OK)
+            {
+                Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+               
+                if (userInput != "")
+                {
+                    command.WriteMessage("You wrote: " + userInput);
+                }
+                else
+                {
+                    command.WriteMessage("No input");
+                }
+            }
         }
     }
 }

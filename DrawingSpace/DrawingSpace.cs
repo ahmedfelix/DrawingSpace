@@ -72,7 +72,7 @@ namespace DrawingSpace
         public static void AddLayer(String name)
         {
             // 7 is the index for white, which is the default color.
-            AddLayer(name, Color.FromColorIndex(ColorMethod.ByAci,7));
+            AddLayer(name, Color.FromColorIndex(ColorMethod.ByAci, 7));
         }
 
 
@@ -287,6 +287,37 @@ namespace DrawingSpace
             }
 
             return objectsSelected;
+        }
+
+
+        /// <summary>
+        /// Prompts the user to input a string.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <returns>The string the user wrote. Any other operation will return an empty string.</returns>
+        public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces)
+        {
+            return GetString(prompt, ref status, allowSpaces, null);
+        }
+
+
+        /// <summary>
+        /// Prompts the user to input a string.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <returns>The string the user wrote or the default value if nothing was written.</returns>
+        public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces,
+            String defaultValue)
+        {
+            PromptStringOptions options = new PromptStringOptions(System.Environment.NewLine + prompt);
+            options.AllowSpaces = allowSpaces;
+            options.DefaultValue = defaultValue;
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            PromptResult result = command.GetString(options);
+            status = result.Status;
+
+            return result.StringResult;
         }
     }
 }
