@@ -69,7 +69,7 @@ namespace DrawingSpace
         /// <remarks>The layer only gets added if it doesn't exist, there's no exception 
         /// for trying to add an existing layer. The layer color will be white, 
         /// every other property is set to its default value.</remarks>
-        public static void AddLayer(String name)
+        public static void AddLayer(string name)
         {
             // 7 is the index for white, which is the default color.
             AddLayer(name, Color.FromColorIndex(ColorMethod.ByAci, 7));
@@ -82,7 +82,7 @@ namespace DrawingSpace
         /// <param name="name">Name for the new layer.</param>
         /// <remarks>The layer only gets added if it doesn't exist, there's no exception 
         /// for trying to add an existing layer.</remarks>
-        public static void AddLayer(String name, Color color)
+        public static void AddLayer(string name, Color color)
         {
             Database database = HostApplicationServices.WorkingDatabase;
             Transaction transaction = database.TransactionManager.StartTransaction();
@@ -118,7 +118,7 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static Entity GetEntity(String prompt, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string prompt, Transaction transaction, ref PromptStatus status,
             OpenMode mode)
         {
             // The defaults for opening erased or locked objects are both false.
@@ -130,7 +130,7 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static Entity GetEntity(String prompt, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string prompt, Transaction transaction, ref PromptStatus status,
             OpenMode mode, bool openErased)
         {
             // The default for opening objects in a locked layer is false.
@@ -142,7 +142,7 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static Entity GetEntity(String prompt, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string prompt, Transaction transaction, ref PromptStatus status,
             OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
         {
             PromptEntityOptions options = new PromptEntityOptions(System.Environment.NewLine + prompt);
@@ -168,7 +168,7 @@ namespace DrawingSpace
         /// Gets an entity from a handle value.
         /// </summary>
         /// <returns>The entity that is identified in the drawing by the specified handle.</returns>
-        public static Entity GetEntityByHandle(String handle, Transaction transaction, OpenMode mode)
+        public static Entity GetEntityByHandle(string handle, Transaction transaction, OpenMode mode)
         {
             // The defaults for opening erased or locked objects are both false.
             return GetEntityByHandle(handle, transaction, mode, false, false);
@@ -179,7 +179,7 @@ namespace DrawingSpace
         /// Gets an entity from a handle value.
         /// </summary>
         /// <returns>The entity that is identified in the drawing by the specified handle.</returns>
-        public static Entity GetEntityByHandle(String handle, Transaction transaction,
+        public static Entity GetEntityByHandle(string handle, Transaction transaction,
             OpenMode mode, bool openErased)
         {
             // The default for opening objects in a locked layer is false.
@@ -191,7 +191,7 @@ namespace DrawingSpace
         /// Gets an entity from a handle value.
         /// </summary>
         /// <returns>The entity that is identified in the drawing by the specified handle.</returns>
-        public static Entity GetEntityByHandle(String handle, Transaction transaction,
+        public static Entity GetEntityByHandle(string handle, Transaction transaction,
             OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
         {
             Database database = HostApplicationServices.WorkingDatabase;
@@ -216,7 +216,7 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
         /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
-        public static Double GetDouble(String prompt, ref PromptStatus status, Double defaultValue)
+        public static double GetDouble(string prompt, ref PromptStatus status, double defaultValue)
         {
             PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
             options.AllowNone = true;
@@ -241,7 +241,7 @@ namespace DrawingSpace
         /// Prompts the user to select a point in the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static Point3d GetPoint3d(String prompt, ref PromptStatus status)
+        public static Point3d GetPoint3d(string prompt, ref PromptStatus status)
         {
             PromptPointOptions options = new PromptPointOptions(prompt);
             PromptPointResult result;
@@ -259,7 +259,7 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(String prompt, Transaction transaction,
+        public static DBObjectCollection GetSelection(string prompt, Transaction transaction,
             ref PromptStatus status, OpenMode mode)
         {
             // The defaults for opening erased or locked objects are both false.
@@ -271,7 +271,7 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(String prompt, Transaction transaction,
+        public static DBObjectCollection GetSelection(string prompt, Transaction transaction,
             ref PromptStatus status, OpenMode mode, bool openErased)
         {
             // The default for opening objects in a locked layer is false.
@@ -283,7 +283,7 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(String prompt, Transaction transaction,
+        public static DBObjectCollection GetSelection(string prompt, Transaction transaction,
             ref PromptStatus status, OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
         {
             PromptSelectionOptions options = new PromptSelectionOptions();
@@ -322,7 +322,7 @@ namespace DrawingSpace
         /// <param name="prompt">Message to display in the command line.</param>
         /// <returns>The string the user wrote. Any other operation will return an empty string.</returns>
         /// <remarks>If the user doesn't select anything, status will still return OK, not None.</remarks>
-        public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces)
+        public static string GetString(string prompt, ref PromptStatus status, bool allowSpaces)
         {
             return GetString(prompt, ref status, allowSpaces, null);
         }
@@ -334,8 +334,8 @@ namespace DrawingSpace
         /// <param name="prompt">Message to display in the command line.</param>
         /// <returns>The string the user wrote or the default value if nothing was written.</returns>
         /// <remarks>If the user doesn't select anything, status will still return OK, not None.</remarks>
-        public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces,
-            String defaultValue)
+        public static string GetString(string prompt, ref PromptStatus status, bool allowSpaces,
+            string defaultValue)
         {
             PromptStringOptions options = new PromptStringOptions(System.Environment.NewLine + prompt);
             options.AllowSpaces = allowSpaces;

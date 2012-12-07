@@ -73,7 +73,7 @@ namespace DrawingSpace
         {
             Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
                 .StartTransaction();
-            String handle = "188"; // Usually the handle assigned to the first object drawn in AutoCAD 2010.
+            string handle = "188"; // Usually the handle assigned to the first object drawn in AutoCAD 2010.
 
             try
             {
@@ -126,7 +126,7 @@ namespace DrawingSpace
         public static void GetString()
         {
             PromptStatus status = new PromptStatus();
-            String userInput = DrawingSpace.GetString("Input string:", ref status, true);
+            string userInput = DrawingSpace.GetString("Input string:", ref status, true);
 
             if (status == PromptStatus.OK)
             {
