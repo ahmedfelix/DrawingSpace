@@ -115,6 +115,40 @@ namespace DrawingSpace
 
 
         /// <summary>
+        /// Prompts the user to input a double.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
+        /// <returns>The double the user wrote. Any other operation will return 0.</returns>
+        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone)
+        {
+            // Default value is 0.
+            return GetDouble(prompt, ref status, allowNone, 0.0);
+        }
+
+
+        /// <summary>
+        /// Prompts the user to input a double.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
+        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
+        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone,
+            double defaultValue)
+        {
+            PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
+            options.AllowNone = true;
+            options.DefaultValue = defaultValue;
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            PromptDoubleResult result = command.GetDouble(options);
+            status = result.Status;
+
+            return result.Value;
+        }
+
+
+        /// <summary>
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
@@ -208,40 +242,6 @@ namespace DrawingSpace
             }
 
             return entity;
-        }
-
-
-        /// <summary>
-        /// Prompts the user to input a double.
-        /// </summary>
-        /// <param name="prompt">Message to display in the command line.</param>
-        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
-        /// <returns>The double the user wrote. Any other operation will return 0.</returns>
-        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone)
-        {
-            // Default value is 0.
-            return GetDouble(prompt, ref status, allowNone, 0.0);
-        }
-
-
-        /// <summary>
-        /// Prompts the user to input a double.
-        /// </summary>
-        /// <param name="prompt">Message to display in the command line.</param>
-        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
-        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
-        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone, 
-            double defaultValue)
-        { 
-            PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
-            options.AllowNone = true;
-            options.DefaultValue = defaultValue;
-            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
-
-            PromptDoubleResult result = command.GetDouble(options);
-            status = result.Status;
-
-            return result.Value;
         }
 
 
