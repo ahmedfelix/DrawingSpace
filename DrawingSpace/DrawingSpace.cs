@@ -212,6 +212,32 @@ namespace DrawingSpace
 
 
         /// <summary>
+        /// Prompts the user to input a double.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
+        public static Double GetDouble(String prompt, ref PromptStatus status, Double defaultValue)
+        {
+            PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
+            options.AllowNone = true;
+            options.DefaultValue = defaultValue;
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            PromptResult result = command.GetDouble(options);
+            status = result.Status;
+
+            if (status == PromptStatus.OK)
+            {
+                return Double.Parse(result.StringResult);
+            }
+            else // If the user cancels, result is null, and can't be returned as double.
+            {
+                return defaultValue;
+            }
+        }
+
+
+        /// <summary>
         /// Prompts the user to select a point in the drawing.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
@@ -295,6 +321,7 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
         /// <returns>The string the user wrote. Any other operation will return an empty string.</returns>
+        /// <remarks>If the user doesn't select anything, status will still return OK, not None.</remarks>
         public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces)
         {
             return GetString(prompt, ref status, allowSpaces, null);
@@ -306,6 +333,7 @@ namespace DrawingSpace
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
         /// <returns>The string the user wrote or the default value if nothing was written.</returns>
+        /// <remarks>If the user doesn't select anything, status will still return OK, not None.</remarks>
         public static String GetString(String prompt, ref PromptStatus status, Boolean allowSpaces,
             String defaultValue)
         {

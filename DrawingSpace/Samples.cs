@@ -37,13 +37,23 @@ namespace DrawingSpace
             DrawingSpace.AddLayer("1");
         }
 
+        [CommandMethod("DSGETDOUBLE")]
+        public static void GeDouble()
+        {
+            PromptStatus status = new PromptStatus();
+            double userInput = DrawingSpace.GetDouble("Input double:", ref status, 0);
+
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+            command.WriteMessage("Result: " + userInput);
+        }
+
         [CommandMethod("DSGETENTITY")]
         public static void GetEntity()
         {
             Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
                 .StartTransaction();
             PromptStatus status = new PromptStatus();
-            Entity entity = DrawingSpace.GetEntity("Select object:", transaction, ref status, 
+            Entity entity = DrawingSpace.GetEntity("Select object:", transaction, ref status,
                 OpenMode.ForWrite);
 
             // The status lets us know if the user actually selected something or cancelled.
@@ -94,7 +104,7 @@ namespace DrawingSpace
             Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
                 .StartTransaction();
             PromptStatus status = new PromptStatus();
-            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", transaction, 
+            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", transaction,
                 ref status, OpenMode.ForWrite);
 
             // Another way of dealing with the canceling of the operation or empty selection.
@@ -121,7 +131,7 @@ namespace DrawingSpace
             if (status == PromptStatus.OK)
             {
                 Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
-               
+
                 if (userInput != "")
                 {
                     command.WriteMessage("You wrote: " + userInput);
