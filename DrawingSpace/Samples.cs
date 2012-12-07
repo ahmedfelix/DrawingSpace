@@ -41,7 +41,7 @@ namespace DrawingSpace
         public static void GeDouble()
         {
             PromptStatus status = new PromptStatus();
-            double userInput = DrawingSpace.GetDouble("Input double:", ref status, 0);
+            double userInput = DrawingSpace.GetDouble("Input double:", ref status, false);
 
             Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
             command.WriteMessage("Result: " + userInput);

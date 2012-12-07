@@ -215,25 +215,33 @@ namespace DrawingSpace
         /// Prompts the user to input a double.
         /// </summary>
         /// <param name="prompt">Message to display in the command line.</param>
-        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
-        public static double GetDouble(string prompt, ref PromptStatus status, double defaultValue)
+        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
+        /// <returns>The double the user wrote. Any other operation will return 0.</returns>
+        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone)
         {
+            // Default value is 0.
+            return GetDouble(prompt, ref status, allowNone, 0.0);
+        }
+
+
+        /// <summary>
+        /// Prompts the user to input a double.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <param name="allowNone">If false, the user is forced to enter a number or cancel.</param>
+        /// <returns>The double the user wrote. Any other operation will return the default value.</returns>
+        public static double GetDouble(string prompt, ref PromptStatus status, bool allowNone, 
+            double defaultValue)
+        { 
             PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
             options.AllowNone = true;
             options.DefaultValue = defaultValue;
             Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
 
-            PromptResult result = command.GetDouble(options);
+            PromptDoubleResult result = command.GetDouble(options);
             status = result.Status;
 
-            if (status == PromptStatus.OK)
-            {
-                return Double.Parse(result.StringResult);
-            }
-            else // If the user cancels, result is null, and can't be returned as double.
-            {
-                return defaultValue;
-            }
+            return result.Value;
         }
 
 
