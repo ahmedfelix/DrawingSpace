@@ -137,7 +137,7 @@ namespace DrawingSpace
             double defaultValue)
         {
             PromptDoubleOptions options = new PromptDoubleOptions(System.Environment.NewLine + prompt);
-            options.AllowNone = true;
+            options.AllowNone = allowNone;
             options.DefaultValue = defaultValue;
             Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
 
