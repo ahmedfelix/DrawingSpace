@@ -20,13 +20,16 @@ namespace DrawingSpace
 
         public enum Axis { X, Y, Z }
 
+        public enum AngleMode { Degrees, Radians };
+
         /// <summary>
         /// Rotates an object in the drawing.
         /// </summary>
         /// <param name="rotationAngle">Angle in decimal degrees.</param>
         /// <param name="rotationAxis">X, Y, or Z axis around wich the rotation will take place.</param>
         /// <remarks>This method performs a 2D rotation around the specified axis.</remarks>
-        public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Axis rotationAxis)
+        public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle,
+            Axis rotationAxis, AngleMode mode)
         {
             // Default case is rotation around de Z-axis.
             Vector3d rotateVector = new Vector3d(0, 0, 1);
@@ -41,20 +44,25 @@ namespace DrawingSpace
                     break;
             }
 
-            Rotate(entity, basePoint, rotationAngle, rotateVector);
+            Rotate(entity, basePoint, rotationAngle, rotateVector, mode);
         }
 
 
         /// <summary>
         /// Rotates an object in the drawing.
         /// </summary>
-        /// <param name="rotationAngle">Angle in decimal degrees.</param>
-        /// <param name="rotationAxis">Vector representing the custom axis around which the rotation 
-        /// will take place.</param>
-        public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle, Vector3d rotationAxis)
+        /// <param name="rotationAxis">Vector representing the custom axis around 
+        /// which the rotation will take place.</param>
+        /// <param name="mode">States if the angle entered is in degrees or radians.</param>
+        public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle,
+            Vector3d rotationAxis, AngleMode mode)
         {
-            Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle * Math.PI / 180,
-                rotationAxis, basePoint);
+            if (mode == AngleMode.Degrees)
+            {
+                rotationAngle = rotationAngle * Math.PI / 180;
+            }
+
+            Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle, rotationAxis, basePoint);
 
             entity.TransformBy(rotateMatrix);
         }
