@@ -152,11 +152,11 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static Entity GetEntity(string message, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string message, ref PromptStatus status, Transaction transaction,
             OpenMode mode)
         {
             // The defaults for opening erased or locked objects are both false.
-            return GetEntity(message, transaction, ref status, mode, false, false);
+            return GetEntity(message, ref status, transaction, mode, false, false);
         }
 
 
@@ -164,11 +164,11 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static Entity GetEntity(string message, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string message, ref PromptStatus status, Transaction transaction,
             OpenMode mode, bool openErased)
         {
             // The default for opening objects in a locked layer is false.
-            return GetEntity(message, transaction, ref status, mode, openErased, false);
+            return GetEntity(message, ref status, transaction, mode, openErased, false);
         }
 
 
@@ -176,7 +176,7 @@ namespace DrawingSpace
         /// Prompts the user to select a single entity from the drawing.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static Entity GetEntity(string message, Transaction transaction, ref PromptStatus status,
+        public static Entity GetEntity(string message, ref PromptStatus status, Transaction transaction,
             OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
         {
             PromptEntityOptions options = new PromptEntityOptions(System.Environment.NewLine + message);
@@ -291,12 +291,12 @@ namespace DrawingSpace
             PromptKeywordOptions options = new PromptKeywordOptions(message);
             PromptResult result;
             Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
-            
+
             foreach (string keyword in keywords)
             {
                 options.Keywords.Add(keyword);
             }
-            
+
             result = command.GetKeywords(options);
             status = result.Status;
 
@@ -326,11 +326,11 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(string message, Transaction transaction,
-            ref PromptStatus status, OpenMode mode)
+        public static DBObjectCollection GetSelection(string message, ref PromptStatus status,
+            Transaction transaction, OpenMode mode)
         {
             // The defaults for opening erased or locked objects are both false.
-            return GetSelection(message, transaction, ref status, mode, false, false);
+            return GetSelection(message, ref status, transaction, mode, false, false);
         }
 
 
@@ -338,11 +338,11 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(string message, Transaction transaction,
-            ref PromptStatus status, OpenMode mode, bool openErased)
+        public static DBObjectCollection GetSelection(string message, ref PromptStatus status,
+            Transaction transaction, OpenMode mode, bool openErased)
         {
             // The default for opening objects in a locked layer is false.
-            return GetSelection(message, transaction, ref status, mode, openErased, false);
+            return GetSelection(message, ref status, transaction, mode, openErased, false);
         }
 
 
@@ -350,8 +350,8 @@ namespace DrawingSpace
         /// Prompts the user to do a selection of one or more objects.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
-        public static DBObjectCollection GetSelection(string message, Transaction transaction,
-            ref PromptStatus status, OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
+        public static DBObjectCollection GetSelection(string message, ref PromptStatus status,
+            Transaction transaction, OpenMode mode, bool openErased, bool forceOpenOnLockedLayer)
         {
             PromptSelectionOptions options = new PromptSelectionOptions();
             PromptSelectionResult result;

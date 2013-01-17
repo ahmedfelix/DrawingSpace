@@ -53,7 +53,7 @@ namespace DrawingSpace
             Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
                 .StartTransaction();
             PromptStatus status = new PromptStatus();
-            Entity entity = DrawingSpace.GetEntity("Select object:", transaction, ref status,
+            Entity entity = DrawingSpace.GetEntity("Select object:", ref status, transaction,
                 OpenMode.ForWrite);
 
             // The status lets us know if the user actually selected something or cancelled.
@@ -126,8 +126,8 @@ namespace DrawingSpace
             Transaction transaction = HostApplicationServices.WorkingDatabase.TransactionManager
                 .StartTransaction();
             PromptStatus status = new PromptStatus();
-            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", transaction,
-                ref status, OpenMode.ForWrite);
+            DBObjectCollection selection = DrawingSpace.GetSelection("Select objects:", ref status,
+                transaction, OpenMode.ForWrite);
 
             // Another way of dealing with the canceling of the operation or empty selection.
             if (status != PromptStatus.OK)
