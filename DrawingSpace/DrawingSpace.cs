@@ -414,5 +414,22 @@ namespace DrawingSpace
 
             return result.StringResult;
         }
+
+        /// <summary>
+        /// Loads a .NET module.
+        /// </summary>
+        /// <param name="path">Location of the .NET assembly.</param>
+        public static void LoadModule(string path)
+        {
+            try
+            {
+                System.Reflection.Assembly.LoadFrom(path);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
