@@ -278,6 +278,31 @@ namespace DrawingSpace
             return result.Value;
         }
 
+        /// <summary>
+        /// Prompts the user to select a keyword from a list.
+        /// </summary>
+        /// <param name="prompt">Message to display in the command line.</param>
+        /// <param name="keywords">List of keywords from which the user will choose.</param>
+        /// <returns>The keyword selected by the user.</returns>
+        /// <remarks>The keywords must be single words. If a keyword includes spaces, 
+        /// only the first word will be returned.</remarks>
+        public static string GetKeyword(string prompt, ref PromptStatus status, string[] keywords)
+        {
+            PromptKeywordOptions options = new PromptKeywordOptions(prompt);
+            PromptResult result;
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+            
+            foreach (string keyword in keywords)
+            {
+                options.Keywords.Add(keyword);
+            }
+            
+            result = command.GetKeywords(options);
+            status = result.Status;
+
+            return result.StringResult;
+        }
+
 
         /// <summary>
         /// Prompts the user to select a point in the drawing.

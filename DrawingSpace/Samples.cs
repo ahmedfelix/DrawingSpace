@@ -98,6 +98,28 @@ namespace DrawingSpace
 
         }
 
+        [CommandMethod("DSGETKEYWORD")]
+        public static void GetKeyword()
+        {
+            PromptStatus status = new PromptStatus();
+            string[] keywords = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            string userInput = DrawingSpace.GetKeyword("Select a day:", ref status, keywords);
+
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            if (status == PromptStatus.OK)
+            {
+                if (userInput != "")
+                {
+                    command.WriteMessage("You selected: " + userInput);
+                }
+            }
+            else
+            {
+                command.WriteMessage("No selection");
+            }
+        }
+
         [CommandMethod("DSGETSELECTION")]
         public static void GetSelection()
         {
