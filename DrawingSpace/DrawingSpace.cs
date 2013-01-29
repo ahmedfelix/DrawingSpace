@@ -417,55 +417,6 @@ namespace DrawingSpace
 
 
         /// <summary>
-        /// Gets the vertices of a polyline.
-        /// </summary>
-        /// <param name="polyline">Polyline, Polyline2d, or Polyline3d from which to obtain the vertices</param>
-        public static Point3dCollection GetVertices(Curve polyline)
-        {
-            Point3dCollection vertices = new Point3dCollection();
-
-            if (polyline is Polyline)
-            {
-                Polyline pline = (Polyline)polyline;
-
-                for (int i = 0; i < pline.NumberOfVertices; i++)
-                {
-                    vertices.Add(pline.GetPoint3dAt(i));
-                }
-            }
-
-            else if (polyline is Polyline2d)
-            {
-                Polyline2d pline2d = (Polyline2d)polyline;
-                Database database = HostApplicationServices.WorkingDatabase;
-                Transaction transaction = database.TransactionManager.StartTransaction();
-
-                foreach (ObjectId vertexId in pline2d)
-                {
-                    Vertex2d vertex = (Vertex2d)transaction.GetObject(vertexId, OpenMode.ForRead);
-                    vertices.Add(vertex.Position);
-                }
-
-            }
-
-            else if (polyline is Polyline3d)
-            {
-                Polyline3d pline3d = (Polyline3d)polyline;
-                Database database = HostApplicationServices.WorkingDatabase;
-                Transaction transaction = database.TransactionManager.StartTransaction();
-
-                foreach (ObjectId vertexId in pline3d)
-                {
-                    PolylineVertex3d vertex = (PolylineVertex3d)transaction.GetObject(vertexId, OpenMode.ForRead);
-                    vertices.Add(vertex.Position);
-                }
-            }
-
-            return vertices;
-        }
-
-
-        /// <summary>
         /// Loads a .NET module.
         /// </summary>
         /// <param name="path">Location of the .NET assembly.</param>
