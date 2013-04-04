@@ -115,6 +115,23 @@ namespace DrawingSpace
 
 
         /// <summary>
+        /// Prompts the user to input a distance.
+        /// </summary>
+        /// <param name="message">Message to display in the command line.</param>
+        /// <returns>The distance input by the user.</returns>
+        public static double GetDistance(string message, ref PromptStatus status)
+        {
+            PromptDistanceOptions options = new PromptDistanceOptions(System.Environment.NewLine + message);
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            PromptDoubleResult result = command.GetDistance(options);
+            status = result.Status;
+
+            return result.Value;
+        }
+
+
+        /// <summary>
         /// Prompts the user to input a double.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>
