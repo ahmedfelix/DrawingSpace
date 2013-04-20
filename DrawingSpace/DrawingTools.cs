@@ -67,10 +67,6 @@ namespace DrawingSpace
             entity.TransformBy(moveMatrix);
         }
 
-        public enum Axis { X, Y, Z }
-
-        public enum AngleMode { Degrees, Radians };
-
         /// <summary>
         /// Rotates an object in the drawing.
         /// </summary>
@@ -78,17 +74,17 @@ namespace DrawingSpace
         /// <param name="rotationAxis">X, Y, or Z axis around wich the rotation will take place.</param>
         /// <remarks>This method performs a 2D rotation around the specified axis.</remarks>
         public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle,
-            Axis rotationAxis, AngleMode mode)
+            DrawingSpace.Axis rotationAxis, DrawingSpace.AngleMode mode)
         {
             // Default case is rotation around de Z-axis.
             Vector3d rotateVector = new Vector3d(0, 0, 1);
 
             switch (rotationAxis)
             {
-                case Axis.X:
+                case DrawingSpace.Axis.X:
                     rotateVector = new Vector3d(1, 0, 0);
                     break;
-                case Axis.Y:
+                case DrawingSpace.Axis.Y:
                     rotateVector = new Vector3d(0, 1, 0);
                     break;
             }
@@ -104,9 +100,9 @@ namespace DrawingSpace
         /// which the rotation will take place.</param>
         /// <param name="mode">States if the angle entered is in degrees or radians.</param>
         public static void Rotate(Entity entity, Point3d basePoint, double rotationAngle,
-            Vector3d rotationAxis, AngleMode mode)
+            Vector3d rotationAxis, DrawingSpace.AngleMode mode)
         {
-            if (mode == AngleMode.Degrees)
+            if (mode == DrawingSpace.AngleMode.Degrees)
             {
                 rotationAngle = rotationAngle * Math.PI / 180;
             }

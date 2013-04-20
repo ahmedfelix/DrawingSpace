@@ -9,6 +9,10 @@ namespace DrawingSpace
 {
     static class DrawingSpace
     {
+        public enum Axis { X, Y, Z }
+        public enum AngleMode { Degrees, Radians };
+
+
         /// <summary>
         /// Adds an entity to the Model space or current layout.
         /// </summary>
