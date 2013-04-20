@@ -131,11 +131,11 @@ namespace DrawingSpace
             PromptDoubleResult result = command.GetAngle(options);
             status = result.Status;
 
-            double angle= result.Value;
+            double angle = result.Value;
 
             if (mode == DrawingSpace.AngleMode.Degrees)
             {
-                angle = angle * Math.PI / 180;
+                angle = angle * 180 / Math.PI;
             }
 
             return angle;

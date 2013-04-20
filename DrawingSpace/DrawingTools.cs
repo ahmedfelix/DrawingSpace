@@ -104,7 +104,7 @@ namespace DrawingSpace
         {
             if (mode == DrawingSpace.AngleMode.Degrees)
             {
-                rotationAngle = rotationAngle * Math.PI / 180;
+                rotationAngle = rotationAngle * 180 / Math.PI;
             }
 
             Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle, rotationAxis, basePoint);
