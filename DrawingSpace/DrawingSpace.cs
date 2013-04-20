@@ -119,6 +119,30 @@ namespace DrawingSpace
 
 
         /// <summary>
+        /// Prompts the user to input an angle.
+        /// </summary>
+        /// <param name="message">Message to display in the command line.</param>
+        /// <returns>The angle input by the user.</returns>
+        public static double GetAngle(string message, ref PromptStatus status, AngleMode mode)
+        {
+            PromptAngleOptions options = new PromptAngleOptions(System.Environment.NewLine + message);
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            PromptDoubleResult result = command.GetAngle(options);
+            status = result.Status;
+
+            double angle= result.Value;
+
+            if (mode == DrawingSpace.AngleMode.Degrees)
+            {
+                angle = angle * Math.PI / 180;
+            }
+
+            return angle;
+        }
+
+
+        /// <summary>
         /// Prompts the user to input a distance.
         /// </summary>
         /// <param name="message">Message to display in the command line.</param>

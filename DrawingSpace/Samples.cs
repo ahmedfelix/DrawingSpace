@@ -37,6 +37,16 @@ namespace DrawingSpace
             DrawingSpace.AddLayer("1");
         }
 
+        [CommandMethod("DSGETANGLE")]
+        public static void GetAngle()
+        {
+            PromptStatus status = new PromptStatus();
+            double userInput = DrawingSpace.GetAngle("Input angle:", ref status, DrawingSpace.AngleMode.Degrees);
+
+            Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
+            command.WriteMessage("Result: " + userInput);
+        }
+
         [CommandMethod("DSGETDOUBLE")]
         public static void GeDouble()
         {
