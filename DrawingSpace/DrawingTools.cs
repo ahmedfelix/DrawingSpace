@@ -7,6 +7,16 @@ namespace DrawingSpace
     static class DrawingTools
     {
         /// <summary>
+        /// Gets the midpoint between two points.
+        /// </summary>
+        public static Point3d GetMidpoint(Point3d point1, Point3d point2)
+        {
+            return new Point3d((point1.X + point2.X) / 2, 
+                (point1.Y + point2.Y) / 2, (point1.Z + point2.Z) / 2);
+        }
+
+
+        /// <summary>
         /// Gets the vertices of a polyline.
         /// </summary>
         /// <param name="polyline">Polyline, Polyline2d, or Polyline3d from which to obtain the vertices</param>
