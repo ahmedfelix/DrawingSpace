@@ -131,5 +131,88 @@ namespace DrawingSpace
             Matrix3d scaleMatrix = Matrix3d.Scaling(scale, basePoint);
             entity.TransformBy(scaleMatrix);
         }
+
+
+        /// <summary>
+        /// Sorts a DBObjectCollection so that the order of its items corresponds 
+        /// to the position of these items along the axis parameter. 
+        /// </summary>
+        /// <param name="items">Entities that will be sorted.</param>
+        /// <param name="axis">Axis along which the entities will be sorted.</param>
+        /// <remarks>The entity's position is obtained from the GeometricExtents.MinPoint property.</remarks>
+        public static DBObjectCollection SortEntities(DBObjectCollection entities, DrawingSpace.Axis axis)
+        {
+            DBObject[] entitiesArray = new DBObject[entities.Count - 1];
+            double[] positions = new double[entities.Count - 1];
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                entitiesArray[i] = entities[i];
+
+                switch (axis)
+                {
+                    case DrawingSpace.Axis.X:
+                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.X;
+                        break;
+                    case DrawingSpace.Axis.Y:
+                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.Y;
+                        break;
+                    case DrawingSpace.Axis.Z:
+                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.Z;
+                        break;
+                }
+            }
+
+            Array.Sort(positions, entitiesArray);
+
+            DBObjectCollection sortedEntities = new DBObjectCollection();
+            for (int i = 0; i < entitiesArray.Length; i++)
+            {
+                sortedEntities.Add(entitiesArray[i]);
+            }
+
+            return sortedEntities;
+        }
+
+
+        /// <summary>
+        /// Sorts a Point3dCollection so that the order of its points corresponds 
+        /// to their position along the axis parameter. 
+        /// </summary>
+        /// <param name="points">Points that will be sorted.</param>
+        /// <param name="axis">Axis along which the points will be sorted.</param>
+        public static Point3dCollection SortPoints(Point3dCollection points, DrawingSpace.Axis axis)
+        {
+            Point3d[] pointsArray = new Point3d[points.Count - 1];
+            double[] positions = new double[points.Count - 1];
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                pointsArray[i] = points[i];
+
+                switch (axis)
+                {
+                    case DrawingSpace.Axis.X:
+                        positions[i] = points[i].X;
+                        break;
+                    case DrawingSpace.Axis.Y:
+                        positions[i] = points[i].Y;
+                        break;
+                    case DrawingSpace.Axis.Z:
+                        positions[i] = points[i].Z;
+                        break;
+                }
+            }
+
+            Array.Sort(positions, pointsArray);
+
+            Point3dCollection sortedPoints = new Point3dCollection();
+            for (int i = 0; i < pointsArray.Length; i++)
+            {
+                sortedPoints.Add(pointsArray[i]);
+            }
+
+            return sortedPoints;
+        }
     }
 }
