@@ -5,6 +5,25 @@ using Autodesk.AutoCAD.Geometry;
 public static class DrawingTools
 {
     /// <summary>
+    /// Creates a Polyline with default settings (layer, color, etc.) with the specified vertices. 
+    /// Only the X and Y coordinates are taken into account, width is zero, and no bulges are added.
+    /// </summary>
+    /// <param name="vertices">Vertices that will compose the polyline.</param>
+    public static Polyline CreatePolyline(Point3dCollection vertices)
+    {
+        Polyline polyline = new Polyline();
+        polyline.SetDatabaseDefaults();
+
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            polyline.AddVertexAt(i, new Point2d(vertices[i].X, vertices[i].Y), 0, 0, 0);
+        }
+
+        return polyline;
+    }
+
+
+    /// <summary>
     /// Gets the midpoint between two points.
     /// </summary>
     public static Point3d GetMidpoint(Point3d point1, Point3d point2)
