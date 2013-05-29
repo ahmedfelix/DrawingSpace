@@ -4,7 +4,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace DrawingSpace
 {
-    static class DrawingTools
+    public static class DrawingTools
     {
         /// <summary>
         /// Gets the midpoint between two points.

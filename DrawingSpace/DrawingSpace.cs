@@ -7,7 +7,7 @@ using Autodesk.AutoCAD.Colors;
 
 namespace DrawingSpace
 {
-    static class DrawingSpace
+   public static class DrawingSpace
     {
         public enum Axis { X, Y, Z }
         public enum AngleMode { Degrees, Radians };
