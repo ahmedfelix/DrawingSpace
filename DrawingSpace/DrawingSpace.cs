@@ -139,6 +139,27 @@ public static class DrawingSpace
         return angle;
     }
 
+    /// <summary>
+    /// Gets the name of the current layer.
+    /// </summary>
+    public static string GetCurrentLayer()
+    {
+        Database database = HostApplicationServices.WorkingDatabase;
+        Transaction transaction = database.TransactionManager.StartTransaction();
+
+        LayerTable layerTable = (LayerTable)transaction.GetObject(database.LayerTableId, OpenMode.ForRead);
+        LayerTableRecord layerRecord;
+
+        layerRecord = (LayerTableRecord)transaction.GetObject(database.Clayer, OpenMode.ForRead);
+
+        string name = layerRecord.Name;
+
+        layerRecord.Dispose();
+        transaction.Dispose();
+
+        return name;
+    }
+
 
     /// <summary>
     /// Prompts the user to input a distance.
@@ -473,5 +494,26 @@ public static class DrawingSpace
         {
             throw;
         }
+    }
+
+
+    /// <summary>
+    /// Sets the current layer if a layer with the name passed as parameter exists in the drawing.
+    /// </summary>
+    /// <param name="name">Name of the layer to set as current.</param>
+    public static void SetCurrentLayer(string name)
+    {
+        Database database = HostApplicationServices.WorkingDatabase;
+        Transaction transaction = database.TransactionManager.StartTransaction();
+
+        LayerTable layerTable = (LayerTable)transaction.GetObject(database.LayerTableId, OpenMode.ForRead);
+
+        if (layerTable.Has(name))
+        {
+            database.Clayer = layerTable[name];
+            transaction.Commit();
+        }
+
+        transaction.Dispose();
     }
 }
