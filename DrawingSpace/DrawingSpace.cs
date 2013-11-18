@@ -10,7 +10,6 @@ public static class DrawingSpace
     public enum Axis { X, Y, Z }
     public enum AngleMode { Degrees, Radians };
 
-
     /// <summary>
     /// Adds an entity to the Model space or current layout.
     /// </summary>
@@ -37,7 +36,6 @@ public static class DrawingSpace
         }
     }
 
-
     /// <summary>
     /// Adds an entity to the Model space or current layout, keeping the transaction open
     /// so the entity can continue being used.
@@ -63,7 +61,6 @@ public static class DrawingSpace
 
     }
 
-
     /// <summary>
     /// Adds a new layer to the drawing.
     /// </summary>
@@ -76,7 +73,6 @@ public static class DrawingSpace
         // 7 is the index for white, which is the default color.
         AddLayer(name, Color.FromColorIndex(ColorMethod.ByAci, 7));
     }
-
 
     /// <summary>
     /// Adds a new layer to the drawing.
@@ -114,7 +110,6 @@ public static class DrawingSpace
             transaction.Dispose();
         }
     }
-
 
     /// <summary>
     /// Prompts the user to input an angle.
@@ -160,7 +155,6 @@ public static class DrawingSpace
         return name;
     }
 
-
     /// <summary>
     /// Prompts the user to input a distance.
     /// </summary>
@@ -177,7 +171,6 @@ public static class DrawingSpace
         return result.Value;
     }
 
-
     /// <summary>
     /// Prompts the user to input a double.
     /// </summary>
@@ -189,7 +182,6 @@ public static class DrawingSpace
         // Default value is 0.
         return GetDouble(message, ref status, allowNone, 0.0);
     }
-
 
     /// <summary>
     /// Prompts the user to input a double.
@@ -211,7 +203,6 @@ public static class DrawingSpace
         return result.Value;
     }
 
-
     /// <summary>
     /// Prompts the user to select a single entity from the drawing.
     /// </summary>
@@ -223,7 +214,6 @@ public static class DrawingSpace
         return GetEntity(message, ref status, transaction, mode, false, false);
     }
 
-
     /// <summary>
     /// Prompts the user to select a single entity from the drawing.
     /// </summary>
@@ -234,7 +224,6 @@ public static class DrawingSpace
         // The default for opening objects in a locked layer is false.
         return GetEntity(message, ref status, transaction, mode, openErased, false);
     }
-
 
     /// <summary>
     /// Prompts the user to select a single entity from the drawing.
@@ -261,7 +250,6 @@ public static class DrawingSpace
         return entity;
     }
 
-
     /// <summary>
     /// Gets an entity from a handle value.
     /// </summary>
@@ -271,7 +259,6 @@ public static class DrawingSpace
         // The defaults for opening erased or locked objects are both false.
         return GetEntityByHandle(handle, transaction, mode, false, false);
     }
-
 
     /// <summary>
     /// Gets an entity from a handle value.
@@ -283,7 +270,6 @@ public static class DrawingSpace
         // The default for opening objects in a locked layer is false.
         return GetEntityByHandle(handle, transaction, mode, openErased, false);
     }
-
 
     /// <summary>
     /// Gets an entity from a handle value.
@@ -308,7 +294,6 @@ public static class DrawingSpace
         return entity;
     }
 
-
     /// <summary>
     /// Prompts the user to input a double.
     /// </summary>
@@ -320,7 +305,6 @@ public static class DrawingSpace
         // Default value is 0.
         return GetInteger(message, ref status, allowNone, 0);
     }
-
 
     /// <summary>
     /// Prompts the user to input a double.
@@ -367,7 +351,6 @@ public static class DrawingSpace
         return result.StringResult;
     }
 
-
     /// <summary>
     /// Prompts the user to select a point in the drawing.
     /// </summary>
@@ -385,7 +368,6 @@ public static class DrawingSpace
         return result.Value;
     }
 
-
     /// <summary>
     /// Prompts the user to do a selection of one or more objects.
     /// </summary>
@@ -397,7 +379,6 @@ public static class DrawingSpace
         return GetSelection(message, ref status, transaction, mode, false, false);
     }
 
-
     /// <summary>
     /// Prompts the user to do a selection of one or more objects.
     /// </summary>
@@ -408,7 +389,6 @@ public static class DrawingSpace
         // The default for opening objects in a locked layer is false.
         return GetSelection(message, ref status, transaction, mode, openErased, false);
     }
-
 
     /// <summary>
     /// Prompts the user to do a selection of one or more objects.
@@ -446,7 +426,6 @@ public static class DrawingSpace
         return objectsSelected;
     }
 
-
     /// <summary>
     /// Prompts the user to input a string.
     /// </summary>
@@ -457,7 +436,6 @@ public static class DrawingSpace
     {
         return GetString(message, ref status, allowSpaces, null);
     }
-
 
     /// <summary>
     /// Prompts the user to input a string.
@@ -479,7 +457,6 @@ public static class DrawingSpace
         return result.StringResult;
     }
 
-
     /// <summary>
     /// Loads a .NET module.
     /// </summary>
@@ -495,7 +472,6 @@ public static class DrawingSpace
             throw;
         }
     }
-
 
     /// <summary>
     /// Sets the current layer if a layer with the name passed as parameter exists in the drawing.

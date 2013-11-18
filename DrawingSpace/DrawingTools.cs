@@ -22,7 +22,6 @@ public static class DrawingTools
         return polyline;
     }
 
-
     /// <summary>
     /// Gets the midpoint between two points.
     /// </summary>
@@ -31,7 +30,6 @@ public static class DrawingTools
         return new Point3d((point1.X + point2.X) / 2,
             (point1.Y + point2.Y) / 2, (point1.Z + point2.Z) / 2);
     }
-
 
     /// <summary>
     /// Gets the vertices of a polyline.
@@ -81,7 +79,6 @@ public static class DrawingTools
         return vertices;
     }
 
-
     /// <summary>
     /// Moves an object in the drawing.
     /// </summary>
@@ -119,7 +116,6 @@ public static class DrawingTools
         Rotate(entity, basePoint, rotationAngle, rotateVector, mode);
     }
 
-
     /// <summary>
     /// Rotates an object in the drawing.
     /// </summary>
@@ -139,7 +135,6 @@ public static class DrawingTools
         entity.TransformBy(rotateMatrix);
     }
 
-
     /// <summary>
     /// Scales an object in the drawing.
     /// </summary>
@@ -148,7 +143,6 @@ public static class DrawingTools
         Matrix3d scaleMatrix = Matrix3d.Scaling(scale, basePoint);
         entity.TransformBy(scaleMatrix);
     }
-
 
     /// <summary>
     /// Sorts a DBObjectCollection so that the order of its items corresponds 
@@ -190,7 +184,6 @@ public static class DrawingTools
 
         return sortedEntities;
     }
-
 
     /// <summary>
     /// Sorts a Point3dCollection so that the order of its points corresponds 
