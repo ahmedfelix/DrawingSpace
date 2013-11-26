@@ -5,6 +5,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
+using CADUtilities;
 
 public class Samples
 {
@@ -39,7 +40,7 @@ public class Samples
     public static void GetAngle()
     {
         PromptStatus status = new PromptStatus();
-        double userInput = DrawingSpace.GetAngle("Input angle:", ref status, DrawingSpace.AngleMode.Degrees);
+        double userInput = DrawingSpace.GetAngle("Input angle:", ref status, AngleMode.Degrees);
 
         Editor command = Application.DocumentManager.MdiActiveDocument.Editor;
         command.WriteMessage("Result: " + userInput);
