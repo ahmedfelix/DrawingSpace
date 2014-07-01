@@ -50,32 +50,34 @@
                     vertices.Add(pline.GetPoint3dAt(i));
                 }
             }
-
-            else if (polyline is Polyline2d)
+            else
             {
-                Polyline2d pline2d = (Polyline2d)polyline;
                 Database database = HostApplicationServices.WorkingDatabase;
                 Transaction transaction = database.TransactionManager.StartTransaction();
 
-                foreach (ObjectId vertexId in pline2d)
+                if (polyline is Polyline2d)
                 {
-                    Vertex2d vertex = (Vertex2d)transaction.GetObject(vertexId, OpenMode.ForRead);
-                    vertices.Add(vertex.Position);
+                    Polyline2d pline2d = (Polyline2d)polyline;
+
+                    foreach (ObjectId vertexId in pline2d)
+                    {
+                        Vertex2d vertex = (Vertex2d)transaction.GetObject(vertexId, OpenMode.ForRead);
+                        vertices.Add(vertex.Position);
+                    }
                 }
 
-            }
-
-            else if (polyline is Polyline3d)
-            {
-                Polyline3d pline3d = (Polyline3d)polyline;
-                Database database = HostApplicationServices.WorkingDatabase;
-                Transaction transaction = database.TransactionManager.StartTransaction();
-
-                foreach (ObjectId vertexId in pline3d)
+                else if (polyline is Polyline3d)
                 {
-                    PolylineVertex3d vertex = (PolylineVertex3d)transaction.GetObject(vertexId, OpenMode.ForRead);
-                    vertices.Add(vertex.Position);
+                    Polyline3d pline3d = (Polyline3d)polyline;
+
+                    foreach (ObjectId vertexId in pline3d)
+                    {
+                        PolylineVertex3d vertex = (PolylineVertex3d)transaction.GetObject(vertexId, OpenMode.ForRead);
+                        vertices.Add(vertex.Position);
+                    }
                 }
+
+                transaction.Dispose();
             }
 
             return vertices;
