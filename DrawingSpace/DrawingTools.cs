@@ -131,7 +131,7 @@
         {
             if (mode == AngleMode.Degrees)
             {
-                rotationAngle = rotationAngle * 180 / Math.PI;
+                rotationAngle = rotationAngle * Math.PI / 180;
             }
 
             Matrix3d rotateMatrix = Matrix3d.Rotation(rotationAngle, rotationAxis, basePoint);
