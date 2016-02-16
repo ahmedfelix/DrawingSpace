@@ -157,8 +157,8 @@
         /// <remarks>The entity's position is obtained from the GeometricExtents.MinPoint property.</remarks>
         public static DBObjectCollection SortEntities(DBObjectCollection entities, Axis axis)
         {
-            DBObject[] entitiesArray = new DBObject[entities.Count - 1];
-            double[] positions = new double[entities.Count - 1];
+            DBObject[] entitiesArray = new DBObject[entities.Count];
+            double[] positions = new double[entities.Count];
 
             for (int i = 0; i < entities.Count; i++)
             {
@@ -197,8 +197,8 @@
         /// <param name="axis">Axis along which the points will be sorted.</param>
         public static Point3dCollection SortPoints(Point3dCollection points, Axis axis)
         {
-            Point3d[] pointsArray = new Point3d[points.Count - 1];
-            double[] positions = new double[points.Count - 1];
+            Point3d[] pointsArray = new Point3d[points.Count];
+            double[] positions = new double[points.Count];
 
             for (int i = 0; i < points.Count; i++)
             {
