@@ -59,10 +59,16 @@
                 {
                     Polyline2d pline2d = (Polyline2d)polyline;
 
-                    foreach (ObjectId vertexId in pline2d)
+                    foreach (Object vertex in pline2d)
                     {
-                        Vertex2d vertex = (Vertex2d)transaction.GetObject(vertexId, OpenMode.ForRead);
-                        vertices.Add(vertex.Position);
+                        if (vertex is Vertex2d)
+                        {
+                            vertices.Add(((Vertex2d)vertex).Position);
+                        }
+                        else if (vertex is ObjectId)
+                        {
+                            vertices.Add(((Vertex2d)transaction.GetObject((ObjectId)vertex, OpenMode.ForRead)).Position);
+                        }
                     }
                 }
 
