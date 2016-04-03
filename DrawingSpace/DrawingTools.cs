@@ -90,6 +90,76 @@
         }
 
         /// <summary>
+        /// Inserts a block in the drawing.
+        /// </summary>
+        /// <param name="name">Name of the block to insert.</param>
+        /// <param name="insertionPoint">Point where the block will be inserted.</param>
+        /// <returns></returns>
+        public static BlockReference InsertBlockReference(string name, Point3d insertionPoint, Transaction transaction)
+        {
+            Database database = HostApplicationServices.WorkingDatabase;
+            ObjectId blockId;
+
+            BlockTable blockTable = (BlockTable)transaction.GetObject(database.BlockTableId, OpenMode.ForRead);
+            BlockTableRecord blockTableRecord = (BlockTableRecord)transaction.GetObject(blockTable[name], OpenMode.ForRead);
+
+            blockId = blockTableRecord.Id;
+
+            BlockReference block = new BlockReference(insertionPoint, blockId);
+            DrawingSpace.AddEntity(block, transaction);
+
+            return block;
+        }
+
+        /// <summary>
+        /// Inserts a block in the drawing.
+        /// </summary>
+        /// <param name="name">Name of the block to insert.</param>
+        /// <param name="insertionPoint">Point where the block will be inserted.</param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public static BlockReference InsertBlockReference(string name, Point3d insertionPoint,
+            string[] attributes, Transaction transaction)
+        {
+            BlockReference block = InsertBlockReference(name, insertionPoint, transaction);
+            Database database = HostApplicationServices.WorkingDatabase;
+
+            BlockTable blockTable = (BlockTable)transaction.GetObject(database.BlockTableId, OpenMode.ForRead);
+            BlockTableRecord blockTableRecord = (BlockTableRecord)transaction.GetObject(blockTable[name], OpenMode.ForRead);
+
+            AttributeReference attribute;
+            AttributeDefinition attributeDefinition;
+            int attributeIndex = 0;
+            Entity entity;
+
+            foreach (ObjectId id in blockTableRecord)
+            {
+                entity = (Entity)transaction.GetObject(id, OpenMode.ForWrite, false, true);
+
+                if (entity.GetType() == typeof(AttributeDefinition))
+                {
+                    attributeDefinition = (AttributeDefinition)entity;
+                    attribute = new AttributeReference();
+                    attribute.SetPropertiesFrom(attributeDefinition);
+                    attribute.Position = new Point3d(attributeDefinition.Position.X + block.Position.X,
+                        attributeDefinition.Position.Y + block.Position.Y,
+                        attribute.Position.Z + block.Position.Z);
+
+                    attribute.Height = attributeDefinition.Height;
+                    attribute.Rotation = attributeDefinition.Rotation;
+                    attribute.Tag = attributeDefinition.Tag;
+                    attribute.TextString = attributes[attributeIndex];
+                    attributeIndex++;
+
+                    block.AttributeCollection.AppendAttribute(attribute);
+                    transaction.AddNewlyCreatedDBObject(attribute, true);
+                }
+            }
+
+            return block;
+        }
+
+        /// <summary>
         /// Moves an object in the drawing.
         /// </summary>
         public static void Move(Entity entity, Point3d fromPoint, Point3d toPoint)
