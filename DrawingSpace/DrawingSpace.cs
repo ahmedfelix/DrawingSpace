@@ -8,7 +8,8 @@
     using Autodesk.AutoCAD.Geometry;
 
     public enum Axis { X, Y, Z }
-    public enum AngleMode { Degrees, Radians };
+    public enum AngleMode { Degrees, Radians }
+    public enum SortParameter { MinPoint, CenterPoint, MaxPoint}
 
     public static class DrawingSpace
     {
@@ -80,6 +81,7 @@
         /// Adds a new layer to the drawing.
         /// </summary>
         /// <param name="name">Name for the new layer.</param>
+        /// <param name="color">Color for the new layer.</param>
         /// <remarks>The layer only gets added if it doesn't exist, there's no exception 
         /// for trying to add an existing layer.</remarks>
         public static void AddLayer(string name, Color color)

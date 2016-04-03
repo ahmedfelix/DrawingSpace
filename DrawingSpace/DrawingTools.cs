@@ -153,7 +153,6 @@
             Matrix3d scaleMatrix = Matrix3d.Scaling(scale, basePoint);
             entity.TransformBy(scaleMatrix);
         }
-
         /// <summary>
         /// Sorts a DBObjectCollection so that the order of its items corresponds 
         /// to the position of these items along the axis parameter. 
@@ -163,23 +162,76 @@
         /// <remarks>The entity's position is obtained from the GeometricExtents.MinPoint property.</remarks>
         public static DBObjectCollection SortEntities(DBObjectCollection entities, Axis axis)
         {
+            return SortEntities(entities, axis, SortParameter.MinPoint);
+        }
+
+        /// <summary>
+        /// Sorts a DBObjectCollection so that the order of its items corresponds 
+        /// to the position of these items along the axis parameter. 
+        /// </summary>
+        /// <param name="entities">Entities that will be sorted.</param>
+        /// <param name="axis">Axis along which the entities will be sorted.</param>
+        /// <param name="sortParameter">Defines what point in the object's GeometricExtents will be used to sort.</param>
+        /// <remarks>The entity's position is obtained from the GeometricExtents and uses what the sortParameter indicates.</remarks>
+        public static DBObjectCollection SortEntities(DBObjectCollection entities, Axis axis, SortParameter sortParameter)
+        {
             DBObject[] entitiesArray = new DBObject[entities.Count];
             double[] positions = new double[entities.Count];
 
             for (int i = 0; i < entities.Count; i++)
             {
-                entitiesArray[i] = entities[i];
+                Entity entity = (Entity)entities[i];
+                entitiesArray[i] = entity;
 
                 switch (axis)
                 {
                     case Axis.X:
-                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.X;
+                        switch (sortParameter)
+                        {
+                            case SortParameter.MinPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.X;
+                                break;
+                            case SortParameter.CenterPoint:
+                                positions[i] = (entity.GeometricExtents.MinPoint.X + entity.GeometricExtents.MaxPoint.X) / 2;
+                                break;
+                            case SortParameter.MaxPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.X;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case Axis.Y:
-                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.Y;
+                        switch (sortParameter)
+                        {
+                            case SortParameter.MinPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.Y;
+                                break;
+                            case SortParameter.CenterPoint:
+                                positions[i] = (entity.GeometricExtents.MinPoint.Y + entity.GeometricExtents.MaxPoint.Y) / 2;
+                                break;
+                            case SortParameter.MaxPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.Y;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case Axis.Z:
-                        positions[i] = ((Entity)entities[i]).GeometricExtents.MinPoint.Z;
+                        switch (sortParameter)
+                        {
+                            case SortParameter.MinPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.Z;
+                                break;
+                            case SortParameter.CenterPoint:
+                                positions[i] = (entity.GeometricExtents.MinPoint.Z + entity.GeometricExtents.MaxPoint.Z) / 2;
+                                break;
+                            case SortParameter.MaxPoint:
+                                positions[i] = entity.GeometricExtents.MinPoint.Z;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                 }
             }
